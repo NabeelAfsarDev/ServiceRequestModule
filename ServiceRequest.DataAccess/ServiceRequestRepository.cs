@@ -25,7 +25,7 @@ namespace ServiceRequest.DataAccess
             DbContext.SaveChanges();
         }
 
-        public void DeleteCategory(Guid requestId)
+        public void DeleteServiceRequest(Guid requestId)
         {
             var request = DbContext.serviceRequests.FirstOrDefault(sr => sr.ID == requestId);
             if(request != null)
@@ -36,7 +36,7 @@ namespace ServiceRequest.DataAccess
             }
         }
 
-        public void UpdateCategory(ServiceRequest updatedRequest)
+        public void UpdateServiceRequest(ServiceRequest updatedRequest)
         {
             var existingRequest = DbContext.serviceRequests.FirstOrDefault(sr => sr.ID == updatedRequest.ID);
             if(existingRequest != null)
@@ -44,7 +44,7 @@ namespace ServiceRequest.DataAccess
                 existingRequest.Description = updatedRequest.Description;
                 existingRequest.CurrentStatus = updatedRequest.CurrentStatus;
                 existingRequest.LastModifiedBy = updatedRequest.LastModifiedBy;
-                existingRequest.LastModifiedDate = DateTime.Parse(DateTime.Now.ToString("O"));
+                existingRequest.LastModifiedDate = updatedRequest.LastModifiedDate;
             }
         }
     }
