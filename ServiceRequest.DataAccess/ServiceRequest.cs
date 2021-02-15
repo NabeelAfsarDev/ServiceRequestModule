@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ServiceRequestModule.Models
+namespace ServiceRequest.DataAccess
 {
     public enum CurrentStatus
     {
