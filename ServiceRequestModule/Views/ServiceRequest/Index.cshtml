@@ -1,0 +1,66 @@
+﻿<div class="table-responsive">
+    <hr />
+    <a class="btn btn-sm btn-info" href="@Url.Action("Create","ServiceRequest")">Add Service Request</a>
+    <hr />
+    <table class="table table-striped table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Building Code</th>
+                <th>Description</th>
+                <th>Current Status</th>
+                <th>Created By</th>
+                <th>Created Date</th>
+                <th>Last Modified By</th>
+                <th>Last Modified Date</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody id="requests-tbody">
+        </tbody>
+    </table>
+</div>
+<!-- /.table-responsive -->
+
+@section scripts{
+    <script type="text/javascript">
+        $.ajax({
+            url: 'http://localhost:44309/api/servicerequest',
+            method: 'GET',
+            success: function (result)
+            {
+                for (var i = 0; i < result.length; i++) {
+                    var newRow = "<tr><td><a href='/ServiceRequest/Details?id=" + result[i].Id + "'>" + result[i].BuildingCode + "</a></td><td>" + result[i].Description + "</td><td>" + result[i].CurrentStatus + "</td><td>" + result[i].CreatedBy + "</td><td>" + result[i].CreatedDate + "</td><td>" + result[i].LastModifiedBy + "</td><td>" + result[i].LastModifiedDate +"</td><td><button class='btn btn-default delete' data-id='" + result[i].Id + "'>Delete</button></td></tr>";
+                    $("#requests-tbody").append(newRow);
+                }
+
+                $('.delete').click(function ()
+                {
+                    //click event body
+
+                    var id = $(this).data('id');
+                    var tr = $(this).parent().parent();
+
+                    $.ajax({
+                        url: 'http://localhost:44309/api/servicerequest/' + id,
+                        method: 'DELETE',
+                        success: function ()
+                        {
+                            tr.hide('slow', function ()
+                            {
+                                tr.remove();
+                            })
+                        },
+                        error: function (err)
+                        {
+                            alert('delete error');
+                        }
+                    })
+                });
+            },
+            error: function (err)
+            {
+                alert('error');
+            }
+        })
+    </script>
+}
