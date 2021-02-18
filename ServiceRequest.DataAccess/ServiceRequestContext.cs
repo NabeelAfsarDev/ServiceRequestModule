@@ -2,7 +2,7 @@
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
 
-namespace ContosoUniversity.DAL
+namespace ServiceRequest.DataAccess
 {
     public class ServiceRequestContext : DbContext
     {
@@ -10,7 +10,7 @@ namespace ContosoUniversity.DAL
         {
         }
 
-        public DbSet<ServiceRequest.DataAccess.ServiceRequest> serviceRequests { get; set; }
+        public DbSet<ServiceRequest> serviceRequests { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
