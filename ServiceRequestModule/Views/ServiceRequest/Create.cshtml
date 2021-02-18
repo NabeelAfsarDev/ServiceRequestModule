@@ -1,0 +1,109 @@
+﻿<div class="row" style="margin-top: 5%;">
+    <div class="col-sm-12">
+        <div class="form-group">
+            <h3>Create Request</h3>
+            <label>Building Code</label>
+            <input type="text" class="form-control" id="building-code" />
+        </div>
+    </div>
+
+    <div class="col-sm-12">
+        <div class="form-group">
+            <label>Description</label>
+            <input type="text" class="form-control" id="description" />
+        </div>
+    </div>
+
+    <div class="col-sm-12">
+        <div class="form-group">
+            <label>Current Status</label>
+            <select id="current-status">
+            </select>
+        </div>
+    </div>
+
+    <div class="col-sm-12">
+        <div class="form-group">
+            <label>Created By</label>
+            <input type="text" class="form-control" id="created-by" value="Nik Patel" />
+        </div>
+    </div>
+
+    <div class="col-sm-12">
+        <div class="form-group">
+            <label>Created Date</label>
+            <input type="datetime" class="form-control" id="created-date" value="02/18/2021" />
+        </div>
+    </div>
+
+    <div class="col-sm-12">
+        <div class="form-group">
+            <label>Last Modified By</label>
+            <input type="text" class="form-control" id="last-modified-by" value="Nik Patel" />
+        </div>
+    </div>
+
+    <div class="col-sm-12">
+        <div class="form-group">
+            <label>Last Modified Date</label>
+            <input type="datetime" class="form-control" id="last-modified-date" value="02/18/2021" />
+        </div>
+    </div>
+
+    <hr />
+    <div class="col-sm-12">
+        <div class="form-group">
+            <button type="button" id="save-btn">Save</button>
+        </div>
+    </div>
+</div>
+
+
+@section scripts{
+    <script type="text/javascript">
+        $.ajax({
+            url: 'http://localhost:44309/api/saleservice',
+            method: 'GET',
+            success: function (result)
+            {
+                for (var i = 0; i < result.length; i++)
+                {
+                    var newOption = "<option value='"+result[i].CurrentStatus+"'>"+result[i].CurrentStatus+"</option>";
+                    $("#current-status").append(newOption);
+                }
+            },
+            error: function (err)
+            {
+                alert('error');
+            }
+        })
+
+
+        $("#save-btn").click(function ()
+        {
+            var request = {
+                BuildingCode: $('#building-code').val(),
+                Description: $('#description').val(),
+                CurrentStatus: $('#current-status').val(),
+                CreatedBy: $('#created-by').val(),
+                CreatedDate: $('#created-date').val(),
+                LastModifiedBy: $('#last-modified-by').val(),
+                LastModifieDate: $('#last-modified-date').val(),
+            };
+
+             $.ajax({
+                url: 'http://localhost:44309/api/salesservice',
+                method: 'POST',
+                 data: request,
+                success: function ()
+                {
+                    window.location.href = "/servicerequest";
+                },
+                error: function (err)
+                {
+                    alert('update error');
+                }
+            })
+        })
+    </script>
+}

@@ -1,0 +1,104 @@
+﻿@model Guid
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="form-group">
+            <label>Building Code</label>
+            <input type="text" class="form-control" id="building-code" />
+        </div>
+    </div>
+
+    <div class="col-sm-12">
+        <div class="form-group">
+            <label>Description</label>
+            <input type="text" class="form-control" id="description" />
+        </div>
+    </div>
+
+    <div class="col-sm-12">
+        <div class="form-group">
+            <label>Current Status</label>
+            <span id="current-status"></span>
+        </div>
+    </div>
+
+    <div class="col-sm-12">
+        <div class="form-group">
+            <label>Created By</label>
+            <span id="created-by"></span>
+        </div>
+    </div>
+
+    <div class="col-sm-12">
+        <div class="form-group">
+            <label>Created Date</label>
+            <span id="created-date"></span>
+        </div>
+    </div>
+
+    <div class="col-sm-12">
+        <div class="form-group">
+            <label>Last Modified By</label>
+            <span id="Last Modified Date"></span>
+        </div>
+    </div>
+
+    <hr />
+    <div class="col-sm-12">
+        <div class="form-group">
+            <button type="button" id="update-btn">Update</button>
+        </div>
+    </div>
+</div>
+
+
+@section scripts{
+
+    <script type="text/javascript">
+        $.ajax({
+            url: 'http://localhost:44309/api/saleservice/'+ '@Model',
+            method: 'GET',
+            success: function (data)
+            {
+                $('#building-code').val(data.BuildingCode);
+                $('#description').val(data.Rating);
+                $('#current-status').text(data.CurrentStatus);
+                $('#created-by').text(data.CreatedBy);
+                $('#created-date').text(data.CreatedDate);
+                $('#last-modified-by').text(data.LastModifiedBy);
+                $('#last-modified-date').text(data.LastModifiedDate);
+            },
+            error: function (err)
+            {
+                alert('error', err);
+            }
+        })
+
+        $('#update-btn').click(function ()
+        {
+            var requestToSend = {
+                BuildingCode: $('#building-code').val(),
+                Description: $('#description').val(),
+                CurrentStatus: $('#current-status').text(),
+                LastModifiedBy: $('#last-modified-by').text(),
+                Id: '@Model'
+            };
+
+            $.ajax({
+                url: 'http://localhost:44309/api/saleservice/' + '@Model',
+                method: 'PUT',
+                data: requestToSend,
+                success: function ()
+                {
+                    alert('Nice');
+                },
+                error: function (err)
+                {
+                    alert('update error');
+                }
+            })
+
+        })
+    </script>
+
+}

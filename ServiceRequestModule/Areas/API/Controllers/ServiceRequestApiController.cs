@@ -9,7 +9,7 @@ using System.Web.Http;
 namespace ServiceRequestModule.Areas.API.Controllers
 {
     [RoutePrefix("api/servicerequest")]
-    public class ServiceRequestController : ApiController
+    public class ServiceRequestApiController : ApiController
     {
         private ServiceRequest.Management.ServiceRequestManagement _management = new ServiceRequest.Management.ServiceRequestManagement();
 
