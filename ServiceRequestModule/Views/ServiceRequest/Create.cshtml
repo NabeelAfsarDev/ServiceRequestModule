@@ -62,7 +62,7 @@
 @section scripts{
     <script type="text/javascript">
         $.ajax({
-            url: 'http://localhost:44309/api/saleservice',
+            url: 'http://localhost:44309/api/servicerequest',
             method: 'GET',
             success: function (result)
             {
@@ -92,7 +92,7 @@
             };
 
              $.ajax({
-                url: 'http://localhost:44309/api/salesservice',
+                url: 'http://localhost:44309/api/servicerequest',
                 method: 'POST',
                  data: request,
                 success: function ()
